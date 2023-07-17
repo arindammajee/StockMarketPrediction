@@ -7,7 +7,7 @@ from datetime import date
 # Collect the Historical Stock Data
 class stockCollection:
     def __init__(self, stock = 'ADANIPOWER.NS'):
-        self.stock = stock.upper()
+        self.stock = stock
         self.comp_dir = os.path.join(os.path.join(os.getcwd(), 'companies'), self.stock)
         self.data_path = os.path.join(self.comp_dir, 'Data')
         self.log_path = os.path.join(self.comp_dir, 'log.txt')

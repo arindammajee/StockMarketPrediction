@@ -1,0 +1,91 @@
+,Country,"Market, or Index",Suffix,Delay,Data Provider
+0,United States of America,Cboe Indices,,15 min,ICE Data Services
+1,United States of America,Chicago Board of Trade (CBOT),.CBT,10 min,ICE Data Services
+2,United States of America,Chicago Mercantile Exchange (CME),.CME,10 min,ICE Data Services
+3,United States of America,Dow Jones Indexes,,Real-time,ICE Data Services
+4,United States of America,Nasdaq Stock Exchange,,Real-time,ICE Data Services
+5,United States of America,ICE Futures US,.NYB,30 min,ICE Data Services
+6,United States of America,New York Commodities Exchange (COMEX),.CMX,30 min,ICE Data Services
+7,United States of America,New York Mercantile Exchange (NYMEX),.NYM,30 min,ICE Data Services
+8,United States of America,Options Price Reporting Authority (OPRA),,15 min,ICE Data Services
+9,United States of America,OTC Bulletin Board Market,,Real-time,ICE Data Services
+10,United States of America,OTC Markets Group,,15 min,ICE Data Services
+11,United States of America,S & P Indices,,Real-time,ICE Data Services
+12,Argentina,Buenos Aires Stock Exchange (BYMA),.BA,30 min,ICE Data Services
+13,Austria,Vienna Stock Exchange,.VI,15 min,ICE Data Services
+14,Australia,Australian Stock Exchange (ASX),.AX,20 min,ICE Data Services
+15,Australia,Cboe Australia,.XA,Real-time,ICE Data Services
+16,Belgium,Euronext Brussels,.BR,15 min,ICE Data Services
+17,Brazil,Sao Paolo Stock Exchange (BOVESPA),.SA,15 min,ICE Data Services
+18,Canada,Canadian Securities Exchange,.CN,Real-time,ICE Data Services
+19,Canada,Cboe Canada,.NE,Real-time,ICE Data Services
+20,Canada,Toronto Stock Exchange (TSX),.TO,Real-time,ICE Data Services
+21,Canada,TSX Venture Exchange (TSXV),.V,Real-time,ICE Data Services
+22,Chile,Santiago Stock Exchange,.SN,15 min,ICE Data Services
+23,China,Shanghai Stock Exchange,.SS,30 min,ICE Data Services
+24,China,Shenzhen Stock Exchange,.SZ,30 min,ICE Data Services
+25,Czech Republic,Prague Stock Exchange Index,.PR,20 min,ICE Data Services
+26,Denmark,Nasdaq OMX Copenhagen,.CO,Real-time,ICE Data Services
+27,Egypt,Egyptian Exchange Index (EGID),.CA,20 min,ICE Data Services
+28,Estonia,Nasdaq OMX Tallinn,.TL,Real-time,ICE Data Services
+29,Europe,Cboe Europe,.XD,Real-time,ICE Data Services
+30,Europe,Euronext,.NX,15 min,ICE Data Services
+31,Finland,Nasdaq OMX Helsinki,.HE,Real-time,ICE Data Services
+32,France,Euronext Paris,.PA,15 min,ICE Data Services
+33,Germany,Berlin Stock Exchange,.BE,15 min,ICE Data Services
+34,Germany,Bremen Stock Exchange,.BM,15 min,ICE Data Services
+35,Germany,Dusseldorf Stock Exchange,.DU,15 min,ICE Data Services
+36,Germany,Frankfurt Stock Exchange,.F,15 min,ICE Data Services
+37,Germany,Hamburg Stock Exchange,.HM,15 min,ICE Data Services
+38,Germany,Hanover Stock Exchange,.HA,15 min,ICE Data Services
+39,Germany,Munich Stock Exchange,.MU,15 min,ICE Data Services
+40,Germany,Stuttgart Stock Exchange,.SG,15 min,ICE Data Services
+41,Germany,Deutsche Boerse XETRA,.DE,15 min,ICE Data Services
+42,Global,Collectable Indices,.REGA,Real-time,Pricing Culture
+43,Global,Cryptocurrencies,,Real-time,CoinMarketCap
+44,Global,Currency Rates,=X,Real-time,ICE Data Services
+45,Global,MSCI Indices,,Real-time,ICE Data Services
+46,Greece,Athens Stock Exchange (ATHEX),.AT,15 min,ICE Data Services
+47,Hong Kong,Hang Seng Indices,,15 min,ICE Data Services
+48,Hong Kong,Hong Kong Stock Exchange (HKEX)***,.HK,15 min,ICE Data Services
+49,Hungary,Budapest Stock Exchange,.BD,15 min,ICE Data Services
+50,Iceland,Nasdaq OMX Iceland,.IC,Real-time,ICE Data Services
+51,India,Bombay Stock Exchange,.BO,15 min,ICE Data Services
+52,India,National Stock Exchange of India,.NS,Real-time**,ICE Data Services
+53,Indonesia,Indonesia Stock Exchange (IDX),.JK,10 min,ICE Data Services
+54,Ireland,Euronext Dublin,.IR,15 min,ICE Data Services
+55,Israel,Tel Aviv Stock Exchange,.TA,20 min,ICE Data Services
+56,Italy,EuroTLX,.TI,20 min,ICE Data Services
+57,Italy,Italian Stock Exchange,.MI,20 min,ICE Data Services
+58,Japan,Nikkei Indices,,30 min,ICE Data Services
+59,Japan,Tokyo Stock Exchange,.T,20 min,ICE Data Services
+60,Kuwait,Boursa Kuwait,.KW,15 min,ICE Data Services
+61,Latvia,Nasdaq OMX Riga,.RG,Real-time,ICE Data Services
+62,Lithuania,Nasdaq OMX Vilnius,.VS,Real-time,ICE Data Services
+63,Malaysia,Malaysian Stock Exchange,.KL,15 min,ICE Data Services
+64,Mexico,Mexico Stock Exchange (BMV),.MX,20 min,ICE Data Services
+65,Netherlands,Euronext Amsterdam,.AS,15 min,ICE Data Services
+66,New Zealand,New Zealand Stock Exchange (NZX),.NZ,20 min,ICE Data Services
+67,Norway,Oslo Stock Exchange,.OL,15 min,ICE Data Services
+68,Philippines,Philippine Stock Exchange Indices,.PS,15 min,ICE Data Services
+69,Poland,Warsaw Stock Exchange,.WA,15 min,ICE Data Services
+70,Portugal,Euronext Lisbon,.LS,15 min,ICE Data Services
+71,Qatar,Qatar Stock Exchange,.QA,15 min,ICE Data Services
+72,Singapore,Singapore Stock Exchange (SGX),.SI,20 min,ICE Data Services
+73,South Africa,Johannesburg Stock Exchange,.JO,15 min,ICE Data Services
+74,South Korea,Korea Stock Exchange,.KS,20 min,ICE Data Services
+75,South Korea,KOSDAQ,.KQ,20 min,ICE Data Services
+76,Spain,Madrid SE C.A.T.S.,.MC,15 min,ICE Data Services
+77,Saudi Arabia,Saudi Stock Exchange (Tadawul),.SAU,15 min,ICE Data Services
+78,Sweden,Nasdaq OMX Stockholm,.ST,Real-time,ICE Data Services
+79,Switzerland,Swiss Exchange (SIX),.SW,30 min,ICE Data Services
+80,Taiwan,Taiwan OTC Exchange,.TWO,20 min,ICE Data Services
+81,Taiwan,Taiwan Stock Exchange (TWSE),.TW,20 min,ICE Data Services
+82,Thailand,Stock Exchange of Thailand (SET),.BK,15 min,ICE Data Services
+83,Turkey,Borsa İstanbul,.IS,15 min,ICE Data Services
+84,United Arab Emirates,Dubai Financial Market,.AE,15 min,ICE Data Services
+85,United Kingdom,Cboe UK,.XC,Real-time,ICE Data Services
+86,United Kingdom,FTSE Indices,,15 min,ICE Data Services
+87,United Kingdom,London Stock Exchange,.L,20 min,ICE Data Services
+88,United Kingdom,London Stock Exchange,.IL,20 min,ICE Data Services
+89,Venezuela,Caracas Stock Exchange,.CR,15 min,ICE Data Services
