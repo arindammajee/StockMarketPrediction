@@ -1,0 +1,6 @@
+Model Train Loss: [1.3919805496698245e-05, 417.7421569824219]
+Model Validation Loss: [0.00017454005137551576, 1.6599059104919434]
+Model test Loss: [0.0005590442451648414, 2.370039701461792]
+Model Train MSE: None
+Model Validation MSE: None
+Model Test MSE: None
