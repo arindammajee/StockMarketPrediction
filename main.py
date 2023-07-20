@@ -5,7 +5,7 @@ from helper.lstm import LSTMModel
 from helper.dataprocess import DataProcess
 from helper.newsSentiment import SentimentAnalysis
 from helper.TickerSymbol import TickerSymbol
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
@@ -18,6 +18,21 @@ from tensorflow.compat.v1 import InteractiveSession
 config = ConfigProto()
 config.gpu_options.allow_growth = True
 session = InteractiveSession(config=config)
+
+def isNowInTimePeriod(startTime, endTime, nowTime):
+    if startTime < endTime:
+        return nowTime >= startTime and nowTime <= endTime
+    else: #Over midnight
+        return nowTime >= startTime or nowTime <= endTime
+
+
+timeStart = '12:00AM'
+timeEnd = '3:30PM'
+timeNow = datetime.now().strftime("%I:%M%p")
+timeEnd = datetime.strptime(timeEnd, "%I:%M%p")
+timeStart = datetime.strptime(timeStart, "%I:%M%p")
+timeNow = datetime.strptime(timeNow, "%I:%M%p")
+timeFlag = isNowInTimePeriod(timeStart, timeEnd, timeNow)
 
 def StockPrediction(company):
    # Create a directory for that company
@@ -151,12 +166,13 @@ def StockPrediction(company):
             pd.DataFrame(modelObj.history.history).to_csv(f)
          
          with open(os.path.join(modelDir, 'performance.txt'), mode='w') as f:
+            f.write("Loss Parameters: MSE, MAPE, MAE")
             f.write("Model Train Loss: " + str(modelObj.train_loss))
             f.write("\nModel Validation Loss: " + str(modelObj.val_loss))
             f.write("\nModel test Loss: " + str(modelObj.test_loss))
-            f.write("\nModel Train MSE: " + str(modelObj.train_mse))
-            f.write("\nModel Validation MSE: " + str(modelObj.val_mse))
-            f.write("\nModel Test MSE: " + str(modelObj.test_mse))
+            #f.write("\nModel Train MSE: " + str(modelObj.train_mse))
+            #f.write("\nModel Validation MSE: " + str(modelObj.val_mse))
+            #f.write("\nModel Test MSE: " + str(modelObj.test_mse))
          
          modelObj.model.save(modelPath)
 
@@ -175,6 +191,8 @@ def StockPrediction(company):
          plt.plot(predictedRescaled[:x_train.shape[0]+x_val.shape[0], 0], color = 'blue', label = 'Predicted price on Validation data')
          plt.plot(predictedRescaled[:x_train.shape[0], 0], color = 'green', label = 'Predicted price on Train data')
          plt.legend(["Real", "Test", "Validation", "Train"])
+         plt.xlabel('No of Days')
+         plt.ylabel("Openning stock value")
          plt.savefig(os.path.join(modelDir, "TrainingFigure.png"), dpi=900)
          plt.show()
 
@@ -193,12 +211,18 @@ def StockPrediction(company):
       todayStockPrice = preProcessedData.sc.inverse_transform(todayStock)
       nextDaysStocPrice = preProcessedData.sc.inverse_transform(nextDaysStock)
 
-      printStr = 'Today is '
       todayDate = date.today()
-      printStr = printStr + str(todayDate) + ' and ' + comp + ' stock openning price is: ' + str(todayStockPrice[-1][0]) + '.\nAnd our AI system says that\n'
-      for i in range(nextDaysStocPrice.shape[0]):
-         printStr = printStr + 'On ' + str(todayDate + timedelta(days=i+1)) + ' openning Stock Price Will be: ' + str(nextDaysStocPrice[i][0]) + '\n'
-      
+      if str(todayDate)==preProcessedData.last_date:
+         printStr = 'Today is '
+         printStr = printStr + str(todayDate) + ' and the openning stock price of ' + company + '('+ comp + ') is: ' + str(todayStockPrice[-1][0]) + '.\nAnd our AI system says that\n'
+         for i in range(nextDaysStocPrice.shape[0]):
+            printStr = printStr + 'On ' + str(todayDate + timedelta(days=i+1)) + ' openning Stock Price Will be: ' + str(nextDaysStocPrice[i][0]) + '\n'
+      else:
+         printStr = 'Today is '
+         printStr = printStr + str(todayDate) + ' and on ' + preProcessedData.last_date + ' the openning stock price of ' + company + '('+ comp + ') was: ' + str(todayStockPrice[-1][0]) + '.\nAnd our AI system says that\n'
+         for i in range(nextDaysStocPrice.shape[0]):
+            printStr = printStr + 'On ' + str(todayDate + timedelta(days=i+1)) + ' openning Stock Price will be: ' + str(nextDaysStocPrice[i][0]) + '\n'
+
       print(printStr)
 
       # News Sentiment Analysis
@@ -212,7 +236,7 @@ def StockPrediction(company):
    else:
       print("Something wrong happend with the System!")
 
-   return 0
+   return 0, 0
 
 if __name__=="__main__":
    html_temp = """

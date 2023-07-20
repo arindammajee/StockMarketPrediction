@@ -13,9 +13,11 @@ class DataProcess:
   def __init__(self, file_path, window, n_future, columnns=[]):
     self.data_path = file_path
     self.original_data = pd.read_csv(self.data_path)
+    self.data = self.original_data[self.original_data.columns[:5]]
     #self.data[columnns] = self.data[columnns].rolling(5).mean()
-    self.data = self.original_data[columnns]
-    self.data = self.data.dropna(axis=0, how='any')
+    self.data = self.data.dropna()
+    self.last_date = self.data['Date'].iloc[-1][:10]
+    self.data = self.data[columnns]
     #self.data = self.data.diff()[columnns]
     #self.data = self.data.dropna(axis=0, how='any')
     self.data = self.data.values
