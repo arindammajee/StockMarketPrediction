@@ -4,8 +4,8 @@ import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow import Variable
 import math
-from tensorflow.keras.models import Sequential, load_model, Model
-from tensorflow.keras.layers import LSTM, Bidirectional, Dense, Dropout, Input, RepeatVector, TimeDistributed
+from tensorflow.keras.models import load_model, Model
+from tensorflow.keras.layers import LSTM, Dense, Dropout, Input, RepeatVector, TimeDistributed
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.optimizers.schedules import PiecewiseConstantDecay
 from tensorflow.keras.callbacks import ModelCheckpoint, LearningRateScheduler
