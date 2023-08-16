@@ -14,7 +14,7 @@ from LSTM_GRU import ShortTermPrediction
 class DataDownloader:
     def __init__(self, ticker):
         self.ticker = ticker
-        self.period = '1mo'
+        self.period = '7d'
         self.interval = '5m'
         self.data_cache = {}
 
@@ -48,14 +48,15 @@ class DataDownloader:
 class DataProcessing:
     def __init__(self, ticker, data):
         self.ticker = ticker
-        self.data = data
-        self.data = self.data[['Open']]
+        self.data = data[:-1]
         self.data = self.data.dropna(axis=0, how='any')
+        self.time = self.data.index
+        self.data = self.data[['Open']]
         self.train_data = None
         self.val_data = None
         self.test_data = None
         self.last = None
-        self.window = 5
+        self.window = 36
         self.n_future = 12
         self.sc = MinMaxScaler(feature_range = (0, 1))
         self.ratio = [0.75, 0.15, 0.1]
@@ -97,6 +98,7 @@ class DataProcessing:
         self.test_data = (x_train[trainNo + valNo:], y_train[trainNo + valNo:])
         self.val_data = (x_train[trainNo: trainNo + valNo], y_train[trainNo: trainNo + valNo])
         self.train_data = (x_train[:trainNo], y_train[:trainNo])
+        self.last = np.array(last)
 
 
 class ModelBuilding:
@@ -105,7 +107,7 @@ class ModelBuilding:
         self.dir_path = path
         self.model_path = self.dir_path + '/LiveModel.h5'
         self.input_shape = (window_size, 1)
-        self.nepoch = 30
+        self.nepoch = 3
         self.batch_size = 8
         self.cache = {}
 
@@ -132,7 +134,7 @@ class ModelBuilding:
         optimizer = Adam(1e-5)
         self.model = self.cache['model']
         self.model.compile(optimizer=optimizer, loss='mse', metrics=['mape', 'mae'])
-        self.history = self.model.fit(train_data[0], train_data[1], validation_data=val_data, epochs=5, batch_size=self.batch_size, callbacks=[ModelCheckpoint(self.model_path, monitor='val_mape', save_best_only=True)])
+        self.history = self.model.fit(train_data[0], train_data[1], validation_data=val_data, epochs=50, batch_size=self.batch_size, callbacks=[ModelCheckpoint(self.model_path, monitor='val_mape', save_best_only=True)])
         self.cache['model'] = self.model
     
     def testing(self, test_data):
@@ -141,34 +143,51 @@ class ModelBuilding:
             file.write("Test Metrices: {}\n".format(self.test_loss))
         file.close()
 
-    
+    def prediction(self, data, sc):
+        predicted = self.model.predict(data)
+        print(predicted.shape)
+        predicted = sc.inverse_transform(predicted[0])
+        return predicted
 
+    
+class LiveStockPrediction:
+    def __init__(self, ticker='ADANIPOWER.NS'):
+        self.ticker = ticker
+        TickerObject = DataDownloader(self.ticker)
+        start_time = TickerObject.currentTime()
+        time_change = timedelta(minutes=5)
+        firstTimeFlag = True
+
+        TickerProcessing = DataProcessing(TickerObject.ticker, TickerObject.getData())
+        TickerProcessing.preprocessing()
+        TickerModel = ModelBuilding(TickerObject.ticker, './', window_size=TickerProcessing.window)
+        TickerModel.createModel(TickerProcessing.n_future)
+        
+        while True:
+            if firstTimeFlag:
+                TickerModel.training(TickerProcessing.train_data, TickerProcessing.val_data)
+                firstTimeFlag = False
+            else:
+                TickerProcessing = DataProcessing(TickerObject.ticker, TickerObject.getData())
+                TickerProcessing.preprocessing()
+                TickerModel.fineTuning(TickerProcessing.train_data, TickerProcessing.val_data)
+            
+            predicted = TickerModel.prediction(TickerProcessing.last, TickerProcessing.sc)
+            last_time = list(TickerProcessing.time[-len(TickerProcessing.last):])
+            for i in range(TickerProcessing.n_future):
+                last_time.append(last_time[-1]+time_change)
+
+            plt.plot(last_time[-12:], list(predicted))
+            plt.show()
+            
+            print("----------------------------------------------------------Let Me Sleep for 2 minutes-------------------------------------------------------------------------")
+            time.sleep(120)
+        
 
 
 
 if __name__=="__main__":
-    ADANIPOWER = DataDownloader('ADANIPOWER.NS')
-    start_time = ADANIPOWER.currentTime()
-    time_change = timedelta(minutes=5)
-    firstTimeFlag = True
-
-    ADANIPOWER_Processing = DataProcessing(ADANIPOWER.ticker, ADANIPOWER.getData())
-    ADANIPOWER_Processing.preprocessing()
-    ADANIPOWER_Model = ModelBuilding(ADANIPOWER.ticker, './')
-    ADANIPOWER_Model.createModel(ADANIPOWER_Processing.n_future)
-    
-    while True:
-        if firstTimeFlag:
-            ADANIPOWER_Model.training(ADANIPOWER_Processing.train_data, ADANIPOWER_Processing.val_data)
-            firstTimeFlag = False
-        else:
-            ADANIPOWER_Processing = DataProcessing(ADANIPOWER.ticker, ADANIPOWER.getData())
-            ADANIPOWER_Processing.preprocessing()
-            ADANIPOWER_Model.fineTuning(ADANIPOWER_Processing.train_data, ADANIPOWER_Processing.val_data)
-        
-        print("----------------------------------------------------------Let Me Sleep for 2 minutes-------------------------------------------------------------------------")
-        time.sleep(120)
-
-
+    #ADANIPOWER = DataDownloader('ADANIPOWER.NS')
+    H = LiveStockPrediction()
 
 
