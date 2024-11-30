@@ -30,8 +30,7 @@ This repository provides an AI-powered Stock Market Prediction System that lever
 
 # Requirements
 ```
-Python 3.8+
-Libraries:
+Python >= 3.8
 streamlit
 numpy
 pandas
@@ -42,23 +41,23 @@ scikit-learn
 
 
 # How to Use
-## Clone the repository:
-```
-git clone https://github.com/your-username/stock-market-prediction.git
-cd stock-market-prediction
+#### 1. Clone the repository:
+  ```
+  git clone https://github.com/your-username/stock-market-prediction.git
+  cd stock-market-prediction
 ```
 
-## Install dependencies:
+#### 2. Install dependencies:
 ```
 pip install -r requirements.txt
 ```
 
-## Run the Streamlit app:
+#### 3. Run the Streamlit app:
 ```
 streamlit run app.py
 ```
 
-## Enter a company's name in the text input field and click "Predict Next Day's Stock Value" to get the forecast.
+#### 4. Enter a company's name in the text input field and click "Predict Next Day's Stock Value" to get the forecast.
 
 ---
 
